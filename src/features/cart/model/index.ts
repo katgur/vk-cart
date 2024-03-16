@@ -1,5 +1,6 @@
 import {
     action,
+    autorun,
     computed,
     makeObservable,
     observable,
@@ -9,21 +10,33 @@ import api from "../../../entities/products/api";
 import { Product } from "../../../entities/products/model";
 import queryInfoStore from "../../../shared/error/model";
 import { QueryStatus } from "../../../shared/error/model/types";
+import { PaginationStore } from "../../../shared/pagination/model";
 
 class CartStore {
-    products: Map<number, Product>;
     MAX_PRODUCTS = 10;
     MIN_PRODUCTS = 1;
+    products: Map<number, Product>;
+    current: Map<number, Product>;
+    pagination: PaginationStore;
 
     constructor() {
         makeObservable(this, {
             products: observable,
             total: computed,
+            fetch: action,
             addProduct: action,
             removeProduct: action,
             removeAllProducts: action,
+            current: observable,
+            applyPagination: action,
         });
         this.products = new Map();
+        this.current = new Map();
+        this.pagination = new PaginationStore(5);
+        autorun(() => {
+            this.pagination.setTotal(this.products.size);
+            this.applyPagination(this.pagination.skip, this.pagination.limit);
+        });
     }
 
     get total() {
@@ -33,7 +46,7 @@ class CartStore {
         );
     }
 
-    fetchAll() {
+    fetch() {
         queryInfoStore.setQueryStatus(QueryStatus.PENDING);
         api.getProducts()
             .then((response) => {
@@ -48,7 +61,7 @@ class CartStore {
                     message: error.message,
                     tryAgain: () => {
                         queryInfoStore.resetError();
-                        this.fetchAll();
+                        this.fetch();
                     },
                 });
             })
@@ -82,8 +95,16 @@ class CartStore {
             this.products.delete(id);
         });
     }
+
+    applyPagination(skip: number, limit: number) {
+        runInAction(() => {
+            this.current = new Map(
+                Array.from(this.products.entries()).slice(skip, skip + limit)
+            );
+        });
+    }
 }
 
-const productsStore = new CartStore();
+const cartStore = new CartStore();
 
-export default productsStore;
+export default cartStore;

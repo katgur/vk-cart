@@ -1,10 +1,6 @@
-import {
-    Icon16AddCircleOutline,
-    Icon16MinusCircleOutline,
-    Icon16DeleteOutline,
-} from "@vkontakte/icons";
+import { Icon16DeleteOutline, Icon16Add, Icon16Minus } from "@vkontakte/icons";
 import { IconButton, ButtonGroup } from "@vkontakte/vkui";
-import productsStore from "../model";
+import cartStore from "../model";
 import { observer } from "mobx-react-lite";
 
 interface CartActionsProps {
@@ -12,7 +8,7 @@ interface CartActionsProps {
 }
 
 const CartActions = observer(({ id }: CartActionsProps) => {
-    const store = productsStore;
+    const store = cartStore;
     const count = store.products.get(id)?.count;
 
     if (!count) {
@@ -26,20 +22,20 @@ const CartActions = observer(({ id }: CartActionsProps) => {
                 onClick={() => store.addProduct(id)}
                 disabled={count === store.MAX_PRODUCTS}
             >
-                <Icon16AddCircleOutline color="#4287f5" />
+                <Icon16Add color="#4287f5" />
             </IconButton>
             <IconButton
                 label="Убрать один товар из корзины"
                 onClick={() => store.removeProduct(id)}
                 disabled={count === store.MIN_PRODUCTS}
             >
-                <Icon16MinusCircleOutline color="#4287f5" />
+                <Icon16Minus color="#4287f5" />
             </IconButton>
             <IconButton
                 label="Удалить весь товар из корзины"
                 onClick={() => store.removeAllProducts(id)}
             >
-                <Icon16DeleteOutline />
+                <Icon16DeleteOutline color="red" />
             </IconButton>
         </ButtonGroup>
     );

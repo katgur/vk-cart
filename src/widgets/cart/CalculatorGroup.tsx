@@ -1,9 +1,9 @@
 import { Button, Div, Group, Header, Text } from "@vkontakte/vkui";
 import { observer } from "mobx-react-lite";
-import productsStore from "../../features/cart/model";
+import cartStore from "../../features/cart/model";
 
 const CalculatorGroup = observer(() => {
-    const cart = productsStore;
+    const cart = cartStore;
 
     return (
         <Group header={<Header mode="secondary">Оплата</Header>}>

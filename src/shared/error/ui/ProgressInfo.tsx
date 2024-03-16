@@ -10,7 +10,7 @@ const ProgressInfo = observer(() => {
         return;
     }
 
-    return <ScreenSpinner />
-})
+    return <ScreenSpinner />;
+});
 
 export default ProgressInfo;

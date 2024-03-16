@@ -38,5 +38,29 @@
         "price": 46,
         "count": 3,
         "thumbnail": "https://cdn.dummyjson.com/product-images/54/thumbnail.jpg"
+    },
+    {
+        "id": 59,
+        "title": "Spring and summershoes",
+        "description": "A person wearing black high heeled shoes outdoors. It is focused on the footwear and the lower part of the person's legs.",
+        "price": 20,
+        "count": 3,
+        "thumbnail": "https://cdn.dummyjson.com/product-images/59/thumbnail.jpg"
+    },
+    {
+        "id": 95,
+        "title": "Wholesale cargo lashing Belt",
+        "description": "Close-up of a toy with the words 'JANGLE', 'CARGO CONTROL', and '$' on it. The tag associated with the image is 'dumbbell.'",
+        "price": 930,
+        "count": 1,
+        "thumbnail": "https://cdn.dummyjson.com/product-images/95/thumbnail.jpg"
+    },
+    {
+        "id": 18,
+        "title": "Oil Free Moisturizer 100ml",
+        "description": "Close-up of a test tube containing Dermi Ve Oil Free Lotion Moisturizer with various text describing its features and ingredients. The lotion is for dry skin disorders and comes in a 100 ml bottle.",
+        "price": 40,
+        "count": 2,
+        "thumbnail": "https://cdn.dummyjson.com/product-images/18/thumbnail.jpg"
     }
 ]

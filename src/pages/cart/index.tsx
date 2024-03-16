@@ -2,13 +2,13 @@ import { Panel, PanelHeader, SplitLayout, SplitCol } from "@vkontakte/vkui";
 import ProductsGroup from "../../widgets/cart/ProductsGroup";
 import CalculatorGroup from "../../widgets/cart/CalculatorGroup";
 import { useEffect } from "react";
-import productsStore from "../../features/cart/model";
+import cartStore from "../../features/cart/model";
 
 function CartPage() {
-    const products = productsStore;
+    const products = cartStore;
 
     useEffect(() => {
-        products.fetchAll();
+        products.fetch();
     }, [products]);
 
     return (

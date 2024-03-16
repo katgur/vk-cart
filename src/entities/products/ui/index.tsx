@@ -1,7 +1,7 @@
 import { Image, Text, RichCell } from "@vkontakte/vkui";
 import { ReactNode } from "react";
 import { observer } from "mobx-react-lite";
-import productsStore from "../../../features/cart/model";
+import cartStore from "../../../features/cart/model";
 
 interface ProductCellProps {
     id: number;
@@ -9,7 +9,7 @@ interface ProductCellProps {
 }
 
 const ProductCell = observer(({ id, after }: ProductCellProps) => {
-    const store = productsStore;
+    const store = cartStore;
 
     const product = store.products.get(id);
 
