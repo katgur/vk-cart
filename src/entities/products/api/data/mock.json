@@ -1,0 +1,42 @@
+[
+    {
+        "id": 96,
+        "title": "lighting ceiling kitchen",
+        "description": "European-style chandelier with lights. The chandelier is displayed in a setting related to Korean makeup and lifestyle.",
+        "price": 30,
+        "count": 2,
+        "thumbnail": "https://cdn.dummyjson.com/product-images/96/thumbnail.jpg"
+    },
+    {
+        "id": 91,
+        "title": "Black Motorbike",
+        "description": "Diagram of various vehicles and associated information. It includes text in multiple languages, mentions of motorbikes, warranty, and easy monthly installments.",
+        "price": 569,
+        "count": 3,
+        "thumbnail": "https://cdn.dummyjson.com/product-images/91/thumbnail.jpg"
+    },
+    {
+        "id": 9,
+        "title": "Infinix INBOOK",
+        "description": "Infinix INBook X1Pro laptop with a blue background. The text on the image highlights the laptop being lightweight yet powerful, and the image is meant for a product selling description.",
+        "price": 1099,
+        "count": 1,
+        "thumbnail": "https://cdn.dummyjson.com/product-images/9/thumbnail.jpg"
+    },
+    {
+        "id": 16,
+        "title": "Hyaluronic Acid Serum",
+        "description": "Bottle of L'OREAL HYALURON EXPERT serum containing 1.5% hyaluronic acid. It is a skincare product related to cosmetics and toiletries.",
+        "price": 19,
+        "count": 1,
+        "thumbnail": "https://cdn.dummyjson.com/product-images/16/thumbnail.jpg"
+    },
+    {
+        "id": 54,
+        "title": "Pubg Printed Graphic T-Shirt",
+        "description": "White t-shirt with a graphic design featuring the word 'PUBG.' It is a casual top that can be described as an active shirt or t-shirt.",
+        "price": 46,
+        "count": 3,
+        "thumbnail": "https://cdn.dummyjson.com/product-images/54/thumbnail.jpg"
+    }
+]

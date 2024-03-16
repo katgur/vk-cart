@@ -5,14 +5,16 @@ import {
     observable,
     runInAction,
 } from "mobx";
-import { Product } from "./types";
+import api from "../../../entities/products/api";
+import { Product } from "../../../entities/products/model";
 
 class CartStore {
     products: Map<number, Product>;
+    setError: (error: string) => void;
     MAX_PRODUCTS = 10;
     MIN_PRODUCTS = 1;
 
-    constructor() {
+    constructor(setError: (error: string) => void) {
         makeObservable(this, {
             products: observable,
             total: computed,
@@ -21,6 +23,7 @@ class CartStore {
             removeAllProducts: action,
         });
         this.products = new Map();
+        this.setError = setError;
     }
 
     get total() {
@@ -28,6 +31,20 @@ class CartStore {
             (acc, product) => acc + product.price * product.count,
             0
         );
+    }
+
+    fetchAll() {
+        api.getProducts()
+            .then((response) => {
+                runInAction(() => {
+                    this.products = new Map(
+                        response.map((product) => [product.id, product])
+                    );
+                });
+            })
+            .catch((error) => {
+                this.setError(error.message);
+            });
     }
 
     addProduct(id: number) {
@@ -57,6 +74,6 @@ class CartStore {
     }
 }
 
-const cartStore = new CartStore();
+const productsStore = new CartStore(console.error);
 
-export default cartStore;
+export default productsStore;

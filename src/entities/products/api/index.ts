@@ -1,17 +1,15 @@
+import delay from "../../../shared/delay";
+import data from "./data/mock.json";
 import { isGetProductsResponse } from "./typeGuards";
 
-const url = "https://fakestoreapi.com/products";
-
 async function getProducts() {
-    const response = await fetch(url);
-    const json = await response.json();
-    if (!response.ok) {
-        throw new Error(json.message);
-    }
-    if (!isGetProductsResponse(json)) {
+    const response = await delay(
+        () => data
+    )();
+    if (!isGetProductsResponse(response)) {
         throw new Error("Wrong data from api");
     }
-    return json;
+    return response;
 }
 
 export default {

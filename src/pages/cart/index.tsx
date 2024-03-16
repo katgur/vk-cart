@@ -1,8 +1,16 @@
 import { Panel, PanelHeader, SplitLayout, SplitCol } from "@vkontakte/vkui";
 import ProductsGroup from "../../widgets/cart/ProductsGroup";
 import CalculatorGroup from "../../widgets/cart/CalculatorGroup";
+import { useEffect } from "react";
+import productsStore from "../../features/cart/model";
 
 function CartPage() {
+    const products = productsStore;
+
+    useEffect(() => {
+        products.fetchAll();
+    }, [products]);
+
     return (
         <Panel>
             <PanelHeader>Корзина</PanelHeader>

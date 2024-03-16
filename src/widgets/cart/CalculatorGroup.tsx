@@ -1,14 +1,14 @@
 import { Button, Div, Group, Header, Text } from "@vkontakte/vkui";
 import { observer } from "mobx-react-lite";
-import cartStore from "../../../features/cart/model";
+import productsStore from "../../features/cart/model";
 
 const CalculatorGroup = observer(() => {
-    const cart = cartStore;
+    const cart = productsStore;
 
     return (
         <Group header={<Header mode="secondary">Оплата</Header>}>
             <Div>
-                <Text>{`Итого: ${cart.total.toFixed(2)} руб.`}</Text>
+                <Text>{`Итого: ${Math.round(cart.total)} руб.`}</Text>
             </Div>
             <Div>
                 <Button size="l" disabled>

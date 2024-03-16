@@ -1,10 +1,5 @@
 import { isNumber, isString, isArray } from "../../../shared";
-import { GetProductsResponse, Product, Rating } from "./types";
-
-function isRating(unknownType: unknown): unknownType is Rating {
-    const rating = unknownType as Rating;
-    return isNumber(rating.count) && isNumber(rating.rate);
-}
+import { GetProductsResponse, Product } from "./types";
 
 function isProduct(unknownType: unknown): unknownType is Product {
     const product = unknownType as Product;
@@ -13,9 +8,8 @@ function isProduct(unknownType: unknown): unknownType is Product {
         isString(product.title) &&
         isNumber(product.price) &&
         isString(product.description) &&
-        isString(product.category) &&
-        isString(product.image) &&
-        isRating(product.rating)
+        isNumber(product.count) &&
+        isString(product.thumbnail)
     );
 }
 

@@ -3,14 +3,8 @@ export type GetProductsResponse = Product[];
 export interface Product {
     id: number;
     title: string;
-    price: number;
     description: string;
-    category: string;
-    image: string;
-    rating: Rating;
-}
-
-export interface Rating {
-    rate: number;
+    price: number;
     count: number;
+    thumbnail: string;
 }
