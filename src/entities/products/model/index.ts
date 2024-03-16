@@ -2,7 +2,7 @@ import { makeObservable, observable, runInAction } from "mobx";
 import api from "../api";
 import { Product } from "./types";
 
-export class ProductsStore {
+class ProductsStore {
     all: Product[] | null;
     setError: (error: string) => void;
 
@@ -26,3 +26,7 @@ export class ProductsStore {
             });
     }
 }
+
+const productsStore = new ProductsStore(console.error);
+
+export default productsStore;
