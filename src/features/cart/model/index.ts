@@ -7,14 +7,15 @@ import {
 } from "mobx";
 import api from "../../../entities/products/api";
 import { Product } from "../../../entities/products/model";
+import queryInfoStore from "../../../shared/error/model";
+import { QueryStatus } from "../../../shared/error/model/types";
 
 class CartStore {
     products: Map<number, Product>;
-    setError: (error: string) => void;
     MAX_PRODUCTS = 10;
     MIN_PRODUCTS = 1;
 
-    constructor(setError: (error: string) => void) {
+    constructor() {
         makeObservable(this, {
             products: observable,
             total: computed,
@@ -23,7 +24,6 @@ class CartStore {
             removeAllProducts: action,
         });
         this.products = new Map();
-        this.setError = setError;
     }
 
     get total() {
@@ -34,6 +34,7 @@ class CartStore {
     }
 
     fetchAll() {
+        queryInfoStore.setQueryStatus(QueryStatus.PENDING);
         api.getProducts()
             .then((response) => {
                 runInAction(() => {
@@ -43,7 +44,16 @@ class CartStore {
                 });
             })
             .catch((error) => {
-                this.setError(error.message);
+                queryInfoStore.setError({
+                    message: error.message,
+                    tryAgain: () => {
+                        queryInfoStore.resetError();
+                        this.fetchAll();
+                    },
+                });
+            })
+            .finally(() => {
+                queryInfoStore.setQueryStatus(QueryStatus.FINISHED);
             });
     }
 
@@ -74,6 +84,6 @@ class CartStore {
     }
 }
 
-const productsStore = new CartStore(console.error);
+const productsStore = new CartStore();
 
 export default productsStore;
