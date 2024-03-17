@@ -14,7 +14,7 @@ const ProductsGroup = observer(() => {
                 {Array.from(store.current.keys()).map((id) => (
                     <ProductCell
                         key={id}
-                        id={id}
+                        product={store.products.get(id) || null}
                         after={<CartActions id={id} />}
                     />
                 ))}
