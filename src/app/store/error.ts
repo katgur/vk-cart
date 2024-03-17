@@ -1,7 +1,7 @@
 import { action, makeObservable, observable, runInAction } from "mobx";
-import { ErrorInfo, QueryStatus } from "./types";
+import { ErrorInfo, QueryStatus } from "../../types/query-info";
 
-class QueryInfoStore {
+export class QueryInfoStore {
     errorInfo: ErrorInfo | null;
     queryStatus: QueryStatus;
 
@@ -34,7 +34,3 @@ class QueryInfoStore {
         });
     }
 }
-
-const queryInfoStore = new QueryInfoStore();
-
-export default queryInfoStore;

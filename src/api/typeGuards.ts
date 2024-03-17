@@ -1,4 +1,4 @@
-import { isNumber, isString, isArray } from "../../../shared";
+import { isNumber, isString, isArray } from "../utils/typeGuards";
 import { GetProductsResponse, Product } from "./types";
 
 function isProduct(unknownType: unknown): unknownType is Product {

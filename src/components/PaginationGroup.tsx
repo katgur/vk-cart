@@ -1,13 +1,13 @@
-import { observer } from "mobx-react-lite";
 import { Group, Pagination } from "@vkontakte/vkui";
-import { PaginationStore } from "../model";
+import { observer } from "mobx-react-lite";
+import { PaginationStore } from "../app/store/pagination";
 
 interface PaginationGroupProps {
     pagination: PaginationStore;
 }
 
 const PaginationGroup = observer(({ pagination }: PaginationGroupProps) => {
-    const { limit, skip, total } = pagination;
+    const { total, limit, skip } = pagination;
 
     if (!total) {
         return;

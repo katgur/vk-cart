@@ -1,15 +1,15 @@
 import { Panel, PanelHeader, SplitLayout, SplitCol } from "@vkontakte/vkui";
-import ProductsGroup from "../../widgets/cart/ProductsGroup";
-import CalculatorGroup from "../../widgets/cart/CalculatorGroup";
+import ProductsGroup from "../components/ProductsGroup";
+import CalculatorGroup from "../components/CalculatorGroup";
 import { useEffect } from "react";
-import cartStore from "../../features/cart/model";
+import useCart from "../hooks/useCart";
 
 function CartPage() {
-    const products = cartStore;
+    const cart = useCart();
 
     useEffect(() => {
-        products.fetch();
-    }, [products]);
+        cart.fetch();
+    }, [cart]);
 
     return (
         <Panel>

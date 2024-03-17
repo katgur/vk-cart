@@ -6,20 +6,21 @@ import {
     observable,
     runInAction,
 } from "mobx";
-import api from "../../../entities/products/api";
-import { Product } from "../../../entities/products/model";
-import queryInfoStore from "../../../shared/error/model";
-import { QueryStatus } from "../../../shared/error/model/types";
-import { PaginationStore } from "../../../shared/pagination/model";
+import api from "../../api";
+import { Product } from "../../types/product";
+import { QueryStatus } from "../../types/query-info";
+import { Store } from ".";
+import { PaginationStore } from "./pagination";
 
-class CartStore {
+export class CartStore {
     MAX_PRODUCTS = 10;
     MIN_PRODUCTS = 1;
     products: Map<number, Product>;
     current: Map<number, Product>;
+    store: Store;
     pagination: PaginationStore;
 
-    constructor() {
+    constructor(store: Store) {
         makeObservable(this, {
             products: observable,
             total: computed,
@@ -29,12 +30,17 @@ class CartStore {
             removeAllProducts: action,
             current: observable,
             applyPagination: action,
+            resetPagination: action,
         });
         this.products = new Map();
         this.current = new Map();
+        this.store = store;
         this.pagination = new PaginationStore(5);
         autorun(() => {
             this.pagination.setTotal(this.products.size);
+            this.resetPagination();
+        });
+        autorun(() => {
             this.applyPagination(this.pagination.skip, this.pagination.limit);
         });
     }
@@ -47,7 +53,7 @@ class CartStore {
     }
 
     fetch() {
-        queryInfoStore.setQueryStatus(QueryStatus.PENDING);
+        this.store.queryInfo.setQueryStatus(QueryStatus.PENDING);
         api.getProducts()
             .then((response) => {
                 runInAction(() => {
@@ -57,16 +63,16 @@ class CartStore {
                 });
             })
             .catch((error) => {
-                queryInfoStore.setError({
+                this.store.queryInfo.setError({
                     message: error.message,
                     tryAgain: () => {
-                        queryInfoStore.resetError();
+                        this.store.queryInfo.resetError();
                         this.fetch();
                     },
                 });
             })
             .finally(() => {
-                queryInfoStore.setQueryStatus(QueryStatus.FINISHED);
+                this.store.queryInfo.setQueryStatus(QueryStatus.FINISHED);
             });
     }
 
@@ -96,6 +102,17 @@ class CartStore {
         });
     }
 
+    resetPagination() {
+        runInAction(() => {
+            this.current = new Map(
+                Array.from(this.products.entries()).slice(
+                    this.pagination.skip,
+                    this.pagination.skip + this.pagination.limit
+                )
+            );
+        });
+    }
+
     applyPagination(skip: number, limit: number) {
         runInAction(() => {
             this.current = new Map(
@@ -104,7 +121,3 @@ class CartStore {
         });
     }
 }
-
-const cartStore = new CartStore();
-
-export default cartStore;

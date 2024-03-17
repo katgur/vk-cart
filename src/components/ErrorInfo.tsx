@@ -1,10 +1,10 @@
 import { Icon24ErrorCircleFillRed } from "@vkontakte/icons";
 import { Alert, SimpleCell, Title } from "@vkontakte/vkui";
-import queryInfoStore from "../model";
+import useErrorInfo from "../hooks/useErrorInfo";
 import { observer } from "mobx-react-lite";
 
 const ErrorInfo = observer(() => {
-    const { errorInfo } = queryInfoStore;
+    const errorInfo = useErrorInfo();
 
     if (!errorInfo) {
         return;

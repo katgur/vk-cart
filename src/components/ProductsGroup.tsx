@@ -1,25 +1,25 @@
 import { Group, Header } from "@vkontakte/vkui";
-import ProductCell from "../../entities/products/ui";
+import CartActions from "./CartActions";
+import PaginationGroup from "./PaginationGroup";
+import ProductCell from "./ProductCell";
+import useCart from "../hooks/useCart";
 import { observer } from "mobx-react-lite";
-import cartStore from "../../features/cart/model";
-import CartActions from "../../features/cart/ui/CartActions";
-import PaginationGroup from "../../shared/pagination/ui/PaginationGroup";
 
 const ProductsGroup = observer(() => {
-    const store = cartStore;
+    const cart = useCart();
 
     return (
         <>
             <Group header={<Header mode="secondary">Товары</Header>}>
-                {Array.from(store.current.keys()).map((id) => (
+                {Array.from(cart.current.entries()).map(([id]) => (
                     <ProductCell
                         key={id}
-                        product={store.products.get(id) || null}
+                        id={id}
                         after={<CartActions id={id} />}
                     />
                 ))}
             </Group>
-            <PaginationGroup pagination={store.pagination} />
+            <PaginationGroup pagination={cart.pagination} />
         </>
     );
 });

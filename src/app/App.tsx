@@ -1,14 +1,20 @@
 import AppConfig from "./AppConfig";
-import CartPage from "../pages/cart";
-import ErrorInfo from "../shared/error/ui/ErrorInfo";
-import ProgressInfo from "../shared/error/ui/ProgressInfo";
+import CartPage from "../pages/CartPage";
+import ErrorInfo from "../components/ErrorInfo";
+import ProgressInfo from "../components/ProgressInfo";
+import { Store } from "./store";
+import StoreProvider from "./StoreProvider";
+
+const store = new Store();
 
 function App() {
     return (
         <AppConfig>
-            <CartPage />
-            <ErrorInfo />
-            <ProgressInfo />
+            <StoreProvider store={store}>
+                <CartPage />
+                <ErrorInfo />
+                <ProgressInfo />
+            </StoreProvider>
         </AppConfig>
     );
 }

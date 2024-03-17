@@ -1,10 +1,10 @@
 import { observer } from "mobx-react-lite";
-import queryInfoStore from "../model";
-import { QueryStatus } from "../model/types";
+import useQueryStatus from "../hooks/useQueryStatus";
+import { QueryStatus } from "../types/query-info";
 import { ScreenSpinner } from "@vkontakte/vkui";
 
 const ProgressInfo = observer(() => {
-    const { queryStatus } = queryInfoStore;
+    const queryStatus = useQueryStatus();
 
     if (queryStatus === QueryStatus.FINISHED) {
         return;

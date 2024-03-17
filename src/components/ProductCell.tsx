@@ -1,17 +1,22 @@
 import { Image, Text, RichCell } from "@vkontakte/vkui";
 import { ReactNode } from "react";
-import { Product } from "../model";
+import useCart from "../hooks/useCart";
+import { observer } from "mobx-react-lite";
 
 interface ProductCellProps {
-    product: Product | null;
+    id: number;
     after: ReactNode;
 }
 
-function ProductCell({ product, after }: ProductCellProps) {
+const ProductCell = observer(({ id, after }: ProductCellProps) => {
+    const cart = useCart();
+
+    const product = cart.products.get(id);
+
     if (!product) {
         return;
     }
-    
+
     return (
         <RichCell
             before={
@@ -28,6 +33,6 @@ function ProductCell({ product, after }: ProductCellProps) {
             <Text weight="1">{product.title}</Text>
         </RichCell>
     );
-}
+});
 
 export default ProductCell;

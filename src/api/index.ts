@@ -1,4 +1,4 @@
-import delay from "../../../shared/delay";
+import delay from "../utils/delay";
 import data from "./data/mock.json";
 import { isGetProductsResponse } from "./typeGuards";
 
